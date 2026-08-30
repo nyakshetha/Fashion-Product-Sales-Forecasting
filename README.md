@@ -29,6 +29,56 @@ This project implements a production-grade machine learning system that:
 
 ---
 
+## 🏗️ System Architecture & Pipeline Flow
+
+The system follows a modular machine learning pipeline architecture from raw data ingestion to interactive model serving:
+
+```mermaid
+flowchart TD
+    subgraph DataLayer ["📁 1. Data Layer"]
+        A["fashion_purchase_dataset.csv"] --> B["data_loader.py (DataLoader)"]
+    end
+
+    subgraph PreprocessingLayer ["⚙️ 2. Preprocessing & Feature Engineering"]
+        B --> C["preprocessing.py (Preprocessor)"]
+        C --> C1["Deduplication & Imputation"]
+        C1 --> C2["Numerical Normalization (Price, Trial_Count)"]
+        C2 --> C3["One-Hot Encoding (26 Features)"]
+    end
+
+    subgraph PartitioningLayer ["⚖️ 3. Partitioning & Resampling"]
+        C3 --> D["utils.py (Stratified 80/20 Train-Test Split)"]
+        D -->|Training Set| E["smote_handler.py (SMOTE Resampling)"]
+        D -->|Test Set| I["Evaluation Test Partition"]
+    end
+
+    subgraph TrainingLayer ["🤖 4. Model Training"]
+        E --> F["model.py (PurchaseModel - XGBoost)"]
+        F --> G["train.py (Trainer)"]
+    end
+
+    subgraph EvaluationLayer ["📊 5. Evaluation & Optimization"]
+        G --> H["evaluate.py (Evaluator)"]
+        I --> H
+        H --> H1["Threshold Tuning (Optimal = 0.28)"]
+        H1 --> H2["Metrics Computation (Accuracy, F1, Recall)"]
+        H2 --> H3["Feature Dominance Check"]
+    end
+
+    subgraph ArtifactsLayer ["💾 6. Artifact Storage"]
+        H3 --> J["outputs/purchase_model.joblib"]
+        H3 --> K["outputs/ Evaluation Plots (ROC, PR, CM, Features)"]
+    end
+
+    subgraph ServingLayer ["🌐 7. Streamlit Web Serving"]
+        J --> L["app.py (Streamlit Web Interface)"]
+        M["User Interactive Input"] --> L
+        L --> N["Real-time Prediction & Probability Output"]
+    end
+```
+
+---
+
 ## 📁 Repository Structure
 
 ```
