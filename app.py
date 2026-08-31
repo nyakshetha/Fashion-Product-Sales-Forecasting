@@ -1,10 +1,9 @@
 """
 app.py
 ------
-Streamlit Web Application for Fashion Product Purchase Prediction.
-Provides an interactive UI to input product attributes and predict
-whether a fashion product will be purchased or not using the trained
-XGBoost model.
+Streamlit Web Application for Fitting Room Garment Purchase Prediction.
+Provides an interactive UI to input product attributes and fitting room trial counts,
+predicting whether a garment will be purchased or not using the trained XGBoost model.
 
 Usage:
     streamlit run app.py
@@ -20,7 +19,7 @@ import os
 # Page Configuration
 # ============================================================
 st.set_page_config(
-    page_title="Fashion Purchase Predictor",
+    page_title="Fitting Room Purchase Predictor",
     page_icon="👗",
     layout="wide",
     initial_sidebar_state="expanded",
@@ -311,10 +310,12 @@ def prepare_input(size, sleeve, color, collar, fit, pattern, price, trial_count)
 st.markdown("""
 <div class="main-header">
     <span class="emoji-icon">👗</span>
-    <h1>Fashion Product Purchase Prediction</h1>
-    <p>Predict whether a garment will be purchased based on product attributes</p>
+    <h1>Fitting Room Garment Purchase Prediction</h1>
+    <p>Predict customer purchase intent based on fitting room trial dynamics and garment physical attributes</p>
 </div>
 """, unsafe_allow_html=True)
+
+st.info("🏬 **Fitting Room Analytics Insight**: This model is trained on in-store **Fitting Room Interaction Data**. Fitting room trial frequency (`Trial_Count`) combines with physical attributes (Size, Fit, Sleeve, Pattern) and pricing to forecast purchase conversion probability.")
 
 
 # ============================================================
@@ -334,7 +335,7 @@ if model is None:
 # ============================================================
 # Input Form
 # ============================================================
-st.markdown('<div class="section-card"><h3>📝 Enter Product Details</h3>', unsafe_allow_html=True)
+st.markdown('<div class="section-card"><h3>📝 Enter Garment & Fitting Room Details</h3>', unsafe_allow_html=True)
 
 col1, col2, col3, col4 = st.columns(4)
 
@@ -362,7 +363,7 @@ with col7:
     price = st.slider("💰 Price (₹)", min_value=200, max_value=3000, value=800, step=50)
 
 with col8:
-    trial_count = st.slider("🔄 Trial Count", min_value=0, max_value=10, value=2, step=1)
+    trial_count = st.slider("🔄 Fitting Room Trial Count", min_value=0, max_value=10, value=2, step=1, help="Number of times customer tried on the garment in the fitting room")
 
 st.markdown("</div>", unsafe_allow_html=True)
 
@@ -475,7 +476,7 @@ if predict_clicked:
                 <tr><td>Fit</td><td>{fit}</td></tr>
                 <tr><td>Pattern</td><td>{pattern}</td></tr>
                 <tr><td>Price</td><td>₹{price}</td></tr>
-                <tr><td>Trial Count</td><td>{trial_count}</td></tr>
+                <tr><td>Fitting Room Trial Count</td><td>{trial_count}</td></tr>
             </table>
             </div>
             """, unsafe_allow_html=True)
@@ -491,7 +492,7 @@ st.markdown("---")
 st.markdown('<div class="section-card"><h3>📊 Feature Importance Analysis</h3>', unsafe_allow_html=True)
 
 if os.path.exists(FEATURE_IMG_PATH):
-    st.image(FEATURE_IMG_PATH, caption="Top features influencing purchase prediction")
+    st.image(FEATURE_IMG_PATH, caption="Top garment physical attributes and fitting room dynamics influencing purchase prediction")
 else:
     st.info("Feature importance plot not available. Run `python main.py` to generate it.")
 
@@ -503,7 +504,7 @@ st.markdown("</div>", unsafe_allow_html=True)
 # ============================================================
 st.markdown("""
 <div class="footer">
-    <strong>Fashion Product Purchase Prediction System</strong><br>
-    Developed as Final Year Project &nbsp;|&nbsp; Powered by XGBoost & Streamlit
+    <strong>Fitting Room Garment Purchase Prediction System</strong><br>
+    In-Store Retail Analytics &nbsp;|&nbsp; Powered by XGBoost & Streamlit
 </div>
 """, unsafe_allow_html=True)

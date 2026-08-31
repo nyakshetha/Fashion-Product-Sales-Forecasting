@@ -47,7 +47,7 @@ def main():
 
     print("\n" + "#" * 60)
     print("#" + " " * 58 + "#")
-    print("#   FASHION PRODUCT PURCHASE PREDICTION SYSTEM           #")
+    print("#  FITTING ROOM GARMENT PURCHASE PREDICTION SYSTEM        #")
     print("#" + " " * 58 + "#")
     print("#" * 60 + "\n")
 

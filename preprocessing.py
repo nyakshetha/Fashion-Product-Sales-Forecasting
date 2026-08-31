@@ -3,7 +3,7 @@ preprocessing.py
 -----------------
 Module for data preprocessing including duplicate removal,
 missing value imputation, categorical standardization, and
-one-hot encoding for the fashion purchase dataset.
+one-hot encoding for the fitting room garment purchase dataset.
 """
 
 import pandas as pd

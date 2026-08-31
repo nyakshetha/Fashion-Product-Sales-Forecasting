@@ -1,20 +1,21 @@
-# 👗 Fashion Product Sales Forecasting & Purchase Prediction
+# 👗 Fitting Room Garment Purchase Prediction & Sales Forecasting
 
-A end-to-end Machine Learning pipeline and interactive web application designed to predict whether a customer will purchase a garment based on product attributes, trial dynamics, and pricing. Built with **Python**, **XGBoost**, **scikit-learn**, **imbalanced-learn**, and **Streamlit**.
+A end-to-end Machine Learning pipeline and interactive web application designed to predict whether a customer will purchase a garment based on in-store **fitting room trial dynamics**, product physical attributes, and pricing. Built with **Python**, **XGBoost**, **scikit-learn**, **imbalanced-learn**, and **Streamlit**.
 
 ---
 
 ## 📌 Project Overview
 
-In fashion e-commerce and retail, predicting customer purchase intent based on product attributes and fitting trial interactions is critical for inventory management, dynamic pricing, and personalized recommendations.
+In retail fashion analytics, predicting customer purchase intent based on fitting room interactions is critical for inventory management, dynamic pricing, and optimizing in-store conversions.
 
-This project implements a production-grade machine learning system that:
-1. Preprocesses and cleans raw retail fashion interaction data.
-2. Standardizes categorical features and handles class imbalance using **SMOTE** (Synthetic Minority Over-sampling Technique).
-3. Trains an optimized **XGBoost** classifier.
-4. Performs **decision threshold tuning** to maximize the F1-Score and Recall.
-5. Evaluates model performance using ROC curves, Precision-Recall curves, confusion matrices, and feature dominance checks.
-6. Serves the trained model via a **Streamlit Web Application** for real-time predictions.
+This project implements a production-grade machine learning system trained on an **In-Store Fitting Room Garment Purchase Dataset** that:
+1. Preprocesses and cleans raw retail fitting room interaction data.
+2. Standardizes categorical features (Size, Sleeve, Color, Collar, Fit, Pattern) and handles class imbalance using **SMOTE** (Synthetic Minority Over-sampling Technique).
+3. Normalizes fitting room trial dynamics (`Trial_Count` - number of times tried on in fitting room) and price attributes.
+4. Trains an optimized **XGBoost** classifier.
+5. Performs **decision threshold tuning** to maximize the F1-Score and Recall.
+6. Evaluates model performance using ROC curves, Precision-Recall curves, confusion matrices, and feature dominance checks.
+7. Serves the trained model via a **Streamlit Web Application** for real-time fitting room purchase forecasting.
 
 ---
 
@@ -104,9 +105,9 @@ d:/garment_purchase_prediction final/
 
 ---
 
-## 📊 Dataset & Features
+## 📊 Fitting Room Dataset & Features
 
-The model utilizes product characteristics and trial interactions to predict purchase decisions (`Purchased`: 0 or 1).
+The model utilizes product characteristics and fitting room trial interactions from the **In-Store Fitting Room Dataset** to predict purchase decisions (`Purchased`: 0 or 1).
 
 | Feature Name | Type | Description / Range |
 | :--- | :--- | :--- |
@@ -116,9 +117,9 @@ The model utilizes product characteristics and trial interactions to predict pur
 | **Collar_Type** | Categorical | Collar style (`Round`, `Polo`, `V-Neck`, `Mandarin`) |
 | **Fit** | Categorical | Garment fit (`Slim`, `Regular`, `Loose`) |
 | **Pattern** | Categorical | Fabric pattern (`Solid`, `Printed`, `Striped`, `Checked`) |
-| **Price** | Numerical | Garment price in ₹ (Range: 200 - 3,000) |
-| **Trial_Count** | Numerical | Number of fitting trial attempts by customer (Range: 0 - 10) |
-| **Purchased** | Target (Binary) | `1` if purchased, `0` if not purchased |
+| **Price** | Numerical | Garment price in ₹ (Range: ₹200 - ₹3,000) |
+| **Trial_Count** | Numerical | Fitting Room Trial Count (Number of times tried on in fitting room, Range: 0 - 10) |
+| **Purchased** | Target (Binary) | `1` if purchased after fitting trial, `0` if left without purchasing |
 
 ---
 

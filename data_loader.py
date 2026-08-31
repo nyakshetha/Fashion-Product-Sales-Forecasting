@@ -1,7 +1,7 @@
 """
 data_loader.py
 --------------
-Module for loading and inspecting the fashion purchase dataset.
+Module for loading and inspecting the fitting room garment purchase dataset.
 Provides the DataLoader class to read CSV files and display
 basic dataset information including shape, column types, and missing values.
 """
